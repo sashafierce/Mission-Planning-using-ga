@@ -13,8 +13,8 @@
 
 ```bash 
 git clone https://github.com/sashafierce/Mission-Planning-using-ga
-pip install numpy matplotlib pandas 
 cd Mission-Planning-using-ga
+pip install numpy matplotlib pandas 
 python2.7 mission_planning.py
 ```
 
