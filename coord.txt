@@ -1,0 +1,31 @@
+home 1109 1056 0
+office_gcn 668 2134 0
+office_rk 557 1951 0
+robita_entrance_gate 814 2021
+office_mary 646 1819
+waiting_area 882 1788
+cabin_joey 698 1451
+copying_station 979 1510
+office_pc 993 1304
+cabin_ross 697 1285
+classroom_entrance 714 1165
+robita_lab_entrance 1026 1187
+light_switches 707 1110
+classroom_system 850 925 0
+whiteboard 877 593
+wall_ac_front 767 312
+wall_ac_back 457 307
+back_right_ac 318 768
+back_left_ac 345 983
+charging_station 1105 1063
+home(light_green) 1109 1056
+rohan 1390 1056
+chandler 1579 1048
+left_cupboard 971 892
+right_cupboard 976 660
+daksh 1309 529
+lakhya 1477 751
+priyanshu 1506 527
+shruti 1751 896 0
+bishnu 1746 562 0
+projector 717 713
