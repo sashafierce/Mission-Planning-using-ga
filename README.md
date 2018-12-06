@@ -11,7 +11,9 @@
 
 ## Instuctions to run
 
-> `python2.7 mission_planning.py`
+```bash 
+python2.7 mission_planning.py
+```
 
 - `coord.txt` contains the site information (IIITA Robotics lab)
 - `transition cost.txt`  contains the cost matrix (shortest viable path length for all lab site pairs)
