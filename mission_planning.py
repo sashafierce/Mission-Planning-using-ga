@@ -244,8 +244,6 @@ while q > 0 :
                 l = random.sample(pool[i][j], size) 
                 if len(l):
                     for item in l:
-                        #item2 = copy.copy(item)
-                        #item2.tuple = (i,j) # m,k tuple
                         route.append(item)
 
       
@@ -507,7 +505,7 @@ while q > 0 :
     total_time_wait = float(Fitness(final).routeLength()) 
    
     print "Total time taken : ", total_time, " with wait ", total_time_wait, "cost = ", total_cost
-    with open("100runs_seq_demo.txt", "a") as myfile:
+    with open("100runs_log.txt", "a") as myfile:
         myfile.write(str(len(final)) + " " + str(total_time) + " " + str(total_time_wait) + " " + str(total_cost) + "\n")
     xs = []
     ys = []
