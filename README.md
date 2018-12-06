@@ -12,6 +12,9 @@
 ## Instuctions to run
 
 ```bash 
+git clone https://github.com/sashafierce/Mission-Planning-using-ga
+pip install numpy matplotlib pandas 
+cd Mission-Planning-using-ga
 python2.7 mission_planning.py
 ```
 
@@ -29,7 +32,7 @@ python2.7 mission_planning.py
 <img src ="https://user-images.githubusercontent.com/18103181/49593378-6edba100-f999-11e8-804f-92d94542152e.jpg">
 
 
-### Dependecies 
+### Dependencies 
 1. Python 2.7
 2. Numpy
 3. Pandas
