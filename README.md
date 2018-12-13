@@ -11,7 +11,12 @@
 
 ## Instuctions to run
 
-> `python2.7 mission_planning.py`
+```bash 
+git clone https://github.com/sashafierce/Mission-Planning-using-ga
+cd Mission-Planning-using-ga
+pip install numpy matplotlib pandas 
+python2.7 mission_planning.py
+```
 
 - `coord.txt` contains the site information (IIITA Robotics lab)
 - `transition cost.txt`  contains the cost matrix (shortest viable path length for all lab site pairs)
@@ -27,7 +32,7 @@
 <img src ="https://user-images.githubusercontent.com/18103181/49593378-6edba100-f999-11e8-804f-92d94542152e.jpg">
 
 
-### Dependecies 
+### Dependencies 
 1. Python 2.7
 2. Numpy
 3. Pandas
