@@ -5,6 +5,7 @@ import sys
 import copy
 
 random.seed(7)
+# parameters used
 w1 = 1 # weight to normalize the travelling time in cost function
 w2 = 1 # weight to normalize the waiting time in cost function
 w = 1 # hyperparameter for greedy heuristic
@@ -16,6 +17,7 @@ point_of_failure = 1
 start = 3  # robita entrance
 sub_tasks = 4
 crossover_rate = 0.9
+
 prob_distribution = []
 for i in range(no_of_sites):
     prob_distribution.append(random.random())
@@ -24,7 +26,7 @@ wait_distribution = []
 for i in range(no_of_sites):
     wait_distribution.append(random.uniform(0,1))
 
-#  For sample missions 1 and 2 and 3
+# Solving for sample missions (Task 1 and Task 2 and Task 3)
 # Task 1: User A wants his project report to be signed by any 2 panelists out of 
 #  5, then to be submitted to either supervisor or office. 
 #    A then (2 of # B, C, D) then (1 of P1 or S) 
@@ -34,9 +36,6 @@ for i in range(no_of_sites):
 #    X1 or X2 (either may be mal-functional) and after signing to be submitted to 
 #    either of the supervisor for signature and finally given to office. 
 #    c then 1 of (X1 or X2) then (P1 or P2) then S. 
-# A = 9 then ( any 2 of (21, 28, 29) ) then (1 or 4) 
-# B = (21, 22, 25) then (6)
-# C = 21 then (7 or 8) then (1 or 2) then (4)
 
 q = 100 # run q times for same distribution but random ground truth
 while q > 0 :
@@ -49,11 +48,15 @@ while q > 0 :
     m = [[1, 3, 2, 0],
             [3, 1, 0, 0],
             [1, 2, 2, 1]]
+    k_copy = k[:]
+    m_copy = m[:]
+
+# A = 9 then ( any 2 of (21, 28, 29) ) then (1 or 4) 
+# B = (21, 22, 25) then (6)
+# C = 21 then (7 or 8) then (1 or 2) then (4)
     siteIndex = [ [ [9], [21,28,29], [1,4], [] ],
                     [ [21,22,25], [6], [], [] ], 
                     [ [21], [7,8], [2 , 1], [4] ] ]
-    k_copy = k[:]
-    m_copy = m[:]
 
     class Site:
         def __init__(self, i, x, y, wtime, name, prob):
@@ -233,13 +236,10 @@ while q > 0 :
         c = [[0]*sub_tasks]*tasks  # counter for dependent set elements, to ensure valid route
         
         while len(route) > 0:
-
-            #ind = site.index
             sorted_cost_list = [ (total_cost_matrix[prev+1][site.index+1],site) for site in route ] 
             sorted_cost_list.sort()
             l = len(sorted_cost_list)
             i = 0
-
             while i < l:
                 site = sorted_cost_list[i][1]
                 i+=1
@@ -248,8 +248,7 @@ while q > 0 :
                 if groupi > 0 and (c[missioni][groupi-1] < k[missioni][groupi-1]):
                     continue
                 else:
-                    break
-                
+                    break   
             c[site.tuple[0]][site.tuple[1]] +=1
             child.append(site)
             route.remove(site)
@@ -459,7 +458,7 @@ while q > 0 :
     with open("100runs_log.txt", "a") as myfile:
         myfile.write(str(len(final)) + " " + str(total_time) + " " + str(total_time_wait) + " " + str(total_cost) + "\n")
 
-    # visualise in map
+    # visualise on map
     xs = []
     ys = []
     for route in final:
@@ -481,7 +480,6 @@ while q > 0 :
 
     plt.scatter(xs, ys)
     i = 0
-        
     for x, y in zip(xs, ys):
         i+=1
         plt.text(x, y, str(i), color="red", fontsize=30)
