@@ -100,7 +100,6 @@ while q > 0 :
                 toSite = self.route[0]
                 pathCost += fromSite.cost(toSite)
                 prob = 1
-
                 for i in range(tasks):
                     task_prob = 1
                     for j in range(sub_tasks):
@@ -120,13 +119,11 @@ while q > 0 :
                 for i in range(0, len(self.route)):
                     fromSite = self.route[i]
                     toSite = None
-
                     if i + 1 < len(self.route):
                         toSite = self.route[i + 1]
                     else:
                         return pathCost + prob
                     pathCost += fromSite.distance(toSite)
-                
                 self.cost = pathCost + prob
             return self.cost
         
@@ -157,7 +154,6 @@ while q > 0 :
             
     def createRoute(missionSites):
         route = []
-
         for i in range(tasks):        
             for j in range(sub_tasks):
 
@@ -167,20 +163,16 @@ while q > 0 :
                     for item in l:
                         item.tuple = (i,j)
                         route.append(item)
-     
-        #route = random.sample(route, len(route) )	
         return route 
 
     def initialPopulation(popSize, missionSites):
         population = []
-
         for i in range(0, popSize):
             population.append(createRoute(missionSites))
         return population
 
     def rankRoutes(population):
         fitnessResults = {}
-
         for i in range(0,len(population)):
             fitnessResults[i] = Fitness(population[i]).routeFitness()
         result =  sorted(fitnessResults.items(), key = operator.itemgetter(1), reverse = True)
@@ -261,13 +253,12 @@ while q > 0 :
 
         for i in range(0,eliteSize):
             children.append(matingpool[i])
-        
         for i in range(0, length):
             child = breed(pool[i], pool[len(matingpool)-i-1])
             children.append(child)
         return children
 
-    # swap mutation with ensuring validity of site sequence
+    # swap mutation ensuring validity of site sequence
     def mutate(individual, mutationRate):
         for swapped in range(0,len(individual)):
             if(random.random() < mutationRate):
@@ -279,7 +270,7 @@ while q > 0 :
                 site1 = individual[swapped] # higher index site
                 site2 = individual[swapWith]
 
-                # don't swap if group index is greater for higher index site in case they belong to same mission 
+                # don't swap if group index is greater for higher indexed site if both belong to same mission 
                 f = 0            
                 if site1.tuple[0]  ==  site2.tuple[0] :   # match mission   
                     if site1.tuple[1] == site2.tuple[1] :   # match subtask  
@@ -331,7 +322,6 @@ while q > 0 :
             plt.xlabel('iteration')
             plt.ylabel('cost') 
             plt.show()
-        
         return bestRoute
 
     f = open ( 'transition costs.txt' , 'r')
