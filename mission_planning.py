@@ -24,7 +24,6 @@ wait_distribution = []
 for i in range(no_of_sites):
     wait_distribution.append(random.uniform(0,1))
 
-    
 #  For sample missions 1 and 2 and 3
 # Task 1: User A wants his project report to be signed by any 2 panelists out of 
 #  5, then to be submitted to either supervisor or office. 
@@ -81,12 +80,10 @@ while q > 0 :
             time = w1 * dis / speed + w2 * site.wait_time
             cost =  time
             return cost
-        
-        
+              
         def __repr__(self):
             return "(" + str(self.index) + "," + str(self.x) + "," + str(self.y) + "," + str(self.title) + "," + str(self.wait_time) + "," + str(self.avail_probability) +  "," + str(self.mission) + "," + str(self.group) + "," +  str(self.tuple) +")"
             
-
     class Fitness:
         def __init__(self, route):
             self.route = route
@@ -130,8 +127,6 @@ while q > 0 :
                     pathCost += fromSite.distance(toSite)
                 
                 self.cost = pathCost + prob
-
-
             return self.cost
         
         def routeFitness(self):
@@ -161,7 +156,6 @@ while q > 0 :
                 self.cost = pathCost
             return self.cost
             
-
     def createRoute(missionSites):
         route = []
 
@@ -178,15 +172,12 @@ while q > 0 :
         #route = random.sample(route, len(route) )	
         return route 
 
-
     def initialPopulation(popSize, missionSites):
         population = []
 
         for i in range(0, popSize):
             population.append(createRoute(missionSites))
         return population
-
-    # run genetic algorithm, variable length genomes
 
     def rankRoutes(population):
         fitnessResults = {}
@@ -230,8 +221,7 @@ while q > 0 :
             for group in range(sub_tasks):
                 sub_pool.append( list( set( [site for site in parent1 if group == site.tuple[1] if task == site.tuple[0]] + [site for site in parent2 if group == site.tuple[1] if task == site.tuple[0] ] ) ) )
             pool.append(sub_pool)
-        
-        
+                
         route = []  
         for i in range(tasks):
          #  sub_route = []
@@ -241,11 +231,9 @@ while q > 0 :
                 if len(l):
                     for item in l:
                         route.append(item)
-
-      
-        # aligned according to greedy heuristic
+     
+        # aligning according to greedy heuristic
         prev = start
-        
         c = [[0]*sub_tasks]*tasks  # counter for dependent set elements, to ensure valid route
         
         while len(route) > 0:
@@ -271,9 +259,8 @@ while q > 0 :
             child.append(site)
             route.remove(site)
             prev = site.index
-        
+ 
         return child
-
 
     def breedPopulation(matingpool, eliteSize):
         children = []
@@ -288,8 +275,7 @@ while q > 0 :
             children.append(child)
         return children
 
-    # dependency should be taken care of between site groups
-
+    # swap mutation with ensuring validity of site sequence
     def mutate(individual, mutationRate):
         for swapped in range(0,len(individual)):
             if(random.random() < mutationRate):
@@ -312,8 +298,7 @@ while q > 0 :
                 individual[swapWith] = site1
         return individual
 
-    #Create function to run mutation over entire population
-
+    # function to run mutation over entire population
     def mutatePopulation(population, mutationRate, eliteSize):
         mutatedPop = []
         length = len(population) - eliteSize
@@ -325,8 +310,7 @@ while q > 0 :
             mutatedPop.append(mutatedInd)
         return mutatedPop
 
-    #Put all steps together to create the next generation
-
+    # all steps together to create the next generation
     def nextGeneration(currentGen, eliteSize, mutationRate):
         popRanked = rankRoutes(currentGen)
         selectionResults = selection(popRanked, eliteSize)
@@ -335,8 +319,7 @@ while q > 0 :
         nextGeneration = mutatePopulation(children, mutationRate, eliteSize)
         return nextGeneration
 
-    #Final step: create the genetic algorithm
-
+    # genetic algorithm with variable length genomes
     def geneticAlgorithm(population, popSize, eliteSize, mutationRate, generations):
         pop = initialPopulation(popSize, population)
         print("Initial fitness: " + str(float(rankRoutes(pop)[0][1])))
@@ -366,7 +349,7 @@ while q > 0 :
     max_cost = sorted(list(set(cost_matrix.flatten().tolist())))[-2]
     w1 = float(speed) / max_cost  # normalize
 
-    # siteList, contains all sites in map
+    # populate siteList, contains all sites in map
     siteList = []
     with open('coord.txt', 'r') as file:
         i = 0
