@@ -71,18 +71,17 @@ while q > 0 :
             self.tuple = ()
         
         def cost(self, site):
-            
             dis = cost_matrix[self.index-1][site.index-1]
             time = w1 * dis / speed + w2 * site.wait_time
             prob_fail = 1 - site.avail_probability
             cost = w * time + prob_fail 
             return cost
-        
+
+        # waiting time and prob not included
         def distance(self, site):
             dis = cost_matrix[self.index-1][site.index-1]
-            time = w1 * dis / speed + w2 * site.wait_time
-            cost =  time
-            return cost
+            time = w1 * dis / speed
+            return time
               
         def __repr__(self):
             return "(" + str(self.index) + "," + str(self.x) + "," + str(self.y) + "," + str(self.title) + "," + str(self.wait_time) + "," + str(self.avail_probability) +  "," + str(self.mission) + "," + str(self.group) + "," +  str(self.tuple) +")"
@@ -210,7 +209,6 @@ while q > 0 :
             index = selectionResults[i]
             matingpool.append(population[index])
         return matingpool
-
 
     def breed(parent1, parent2):
         child = []
