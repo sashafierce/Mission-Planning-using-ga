@@ -42,23 +42,19 @@ for i in range(no_of_sites):
 q = 100 # run q times for same distribution but random ground truth
 while q > 0 :
 
-    missionSites = []     
+    missionSites = []   
+    # hardcoded mission specification  
     k = [[1, 2, 1, 0],
-            [1, 1, 0, 0],
-            [1, 1, 1, 1]]
-    k_copy = [[1, 2, 1, 0],
             [1, 1, 0, 0],
             [1, 1, 1, 1]]
     m = [[1, 3, 2, 0],
             [3, 1, 0, 0],
             [1, 2, 2, 1]]
-    m_copy =[[1, 3, 2, 0],
-            [3, 1, 0, 0],
-            [1, 2, 2, 1]]
     siteIndex = [ [ [9], [21,28,29], [1,4], [] ],
                     [ [21,22,25], [6], [], [] ], 
                     [ [21], [7,8], [2 , 1], [4] ] ]
-
+    k_copy = k[:]
+    m_copy = m[:]
 
     class Site:
         def __init__(self, i, x, y, wtime, name, prob):
@@ -419,8 +415,6 @@ while q > 0 :
     siteList.remove(start_site)
     org_siteList = siteList[:]
 
-    #Run the genetic algorithm
-
     fail = 0
     itr = 0
     ground_truth = []
@@ -431,21 +425,16 @@ while q > 0 :
         else:
             ground_truth.append(0)
     
-    ground_truth[3] = 1 # gate
-    ground_truth[5] = 1 # gate
-    ground_truth[9] = 1 # ands
-    ground_truth[21] = 1 # ands
-    ground_truth[2] = 1 # single
-    ground_truth[6] = 1 # single
-    ground_truth[4] = 1 # single
-    for i in range(10,21): # classroom objects
-        ground_truth[i] = 1
+    ground_truth[3] = 1 # gate, always available
+    ground_truth[5] = 1
 
     final = []   # contains the total path including failed site visits
     avail = []   # stores availability of each visited site
     fails = [[0]*sub_tasks]*tasks  # counter for unavailable sites in each set, to abort dependent subtasks
     cost = 0
     cnt = 9 # no. of non-emtpy subtasks
+
+    # run genetic algorithm, simulate using ground truth, until mission is complete
     while( cnt > 0) :
         print "\nRunning GA, itr = ", itr
         itr+=1
@@ -466,16 +455,6 @@ while q > 0 :
             print "available"
         else:
             fail += 1
-            # aborting all subsequent/dependent subtasks upon failure of a subtask, not used while comparing results
-            #fails[mission][group] += 1
-            #if m_copy[mission][group] - fails[mission][group] < k_copy[mission][group]:
-            #    ind = group
-            #    while ind < sub_tasks:
-            #        if not k[mission][ind] == 0:
-            #           k[mission][ind] = 0
-            #            cnt -= 1
-            #            print "aborting subtask: ", mission, " ", ind   
-            #        ind += 1
             avail.append("not available")
             print "not"
         # below is to handle scenerio when k = m initially for a task i.e all sites 
