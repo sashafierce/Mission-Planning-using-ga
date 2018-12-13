@@ -377,16 +377,14 @@ while q > 0 :
         for line in file :
             site = line.split()
             wtime = wait_distribution[i]
-            prob = prob_distribution[i]
-                    
+            prob = prob_distribution[i]  
             site = Site(i, float(site[1]), float(site[2]), wtime, site[0], prob)
             if i == start:
                 start_site = site
             siteList.append(site)
             i+=1
 
-    # contains sites as per mission description
-
+    # populate missionSites list, contains sites as per mission description
     i = 0    
     for taski in siteIndex:
             task = []
@@ -395,7 +393,7 @@ while q > 0 :
                     subtask = []
                     for sitei in subtaski:
                             site = siteList[sitei]
-                            site.group.append(j) # group : 0,1,2,3
+                            site.group.append(j)
                             site.mission.append(i)
                             s = copy.copy(site)
                             s.tuple = (taski, subtaski)
@@ -415,8 +413,7 @@ while q > 0 :
     siteList.remove(start_site)
     org_siteList = siteList[:]
 
-    fail = 0
-    itr = 0
+    # generate ground truth randomly(uniform distribution)
     ground_truth = []
     for site in siteList:
         r = random.random()
@@ -427,7 +424,8 @@ while q > 0 :
     
     ground_truth[3] = 1 # gate, always available
     ground_truth[5] = 1
-
+    fail = 0
+    itr = 0
     final = []   # contains the total path including failed site visits
     avail = []   # stores availability of each visited site
     fails = [[0]*sub_tasks]*tasks  # counter for unavailable sites in each set, to abort dependent subtasks
