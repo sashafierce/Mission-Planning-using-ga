@@ -114,8 +114,7 @@ while q > 0 :
                             sub_prob = 1 - sub_prob 
                         task_prob = task_prob * sub_prob   
                     prob = prob * task_prob 
-                    
-
+                   
                 for i in range(0, len(self.route)):
                     fromSite = self.route[i]
                     toSite = None
@@ -146,13 +145,11 @@ while q > 0 :
                 for i in range(0, len(self.route)):
                     fromSite = self.route[i]
                     toSite = None
-                    
                     if i + 1 < len(self.route):
                         toSite = self.route[i + 1]
                     else:
                         return pathCost
                     pathCost += fromSite.distance(toSite)
-                    
                 self.cost = pathCost
             return self.cost
             
@@ -181,7 +178,7 @@ while q > 0 :
 
     def rankRoutes(population):
         fitnessResults = {}
-        
+
         for i in range(0,len(population)):
             fitnessResults[i] = Fitness(population[i]).routeFitness()
         result =  sorted(fitnessResults.items(), key = operator.itemgetter(1), reverse = True)
@@ -214,7 +211,6 @@ while q > 0 :
 
     def breed(parent1, parent2):
         child = []
-       
         pool = []
         for task in range(tasks):
             sub_pool = []
@@ -249,7 +245,6 @@ while q > 0 :
                 i+=1
                 groupi =  site.tuple[1]
                 missioni = site.tuple[0]
-                
                 if groupi > 0 and (c[missioni][groupi-1] < k[missioni][groupi-1]):
                     continue
                 else:
