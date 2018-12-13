@@ -362,15 +362,12 @@ while q > 0 :
     f = open ( 'transition costs.txt' , 'r')
 
     # Read the cost matrix to store the opimised path distance between all sites
-
     cost_matrix = np.array([[float(num) for num in line.split('\t')] for line in f ])
     max_cost = sorted(list(set(cost_matrix.flatten().tolist())))[-2]
-    # normalize
-    w1 = float(speed) / max_cost
+    w1 = float(speed) / max_cost  # normalize
 
-    # contains all sites in map
+    # siteList, contains all sites in map
     siteList = []
-
     with open('coord.txt', 'r') as file:
         i = 0
         
@@ -466,24 +463,25 @@ while q > 0 :
         start_site = route[0]    
         missionSites[mission][group].remove(route[0])
 
-    # reset to start site to calc cost
-    start_site = home
-    print "final route : ", final
+    start_site = home # reset start_site to calc cost
     ind = 0
     for site in final:
 	print site.title, "(",site.index,")", " ", site.tuple,")", " ", avail[ind],")", " ", site.avail_probability,")", " ", site.wait_time*100
         ind+=1
      
     total_cost = 1/ float(Fitness(final).routeFitness())
-    w2 = 0
     w1 = 1
+    w2 = 0
     total_time = float(Fitness(final).routeLength())
     w2 = 100
     total_time_wait = float(Fitness(final).routeLength()) 
-   
+
+    # write results 
     print "Total time taken : ", total_time, " with wait ", total_time_wait, "cost = ", total_cost
     with open("100runs_log.txt", "a") as myfile:
         myfile.write(str(len(final)) + " " + str(total_time) + " " + str(total_time_wait) + " " + str(total_cost) + "\n")
+
+    # visualise in map
     xs = []
     ys = []
     for route in final:
