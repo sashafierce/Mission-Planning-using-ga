@@ -6,7 +6,7 @@
 - An Evolutionary algorithm is devised to solve the problem, enabling the use of probabilistic optimality properties. 
 - Each site is assumed to have an associated waiting time which is the average time for which the robot will have to wait in queue till the resource is available for use. A greedy heuristic is used to align the sites in the crossover operation to approach a better solution faster. 
 
-###  `mission_planning.py` contains the implementation of proposed GA 
+`mission_planning.py` contains the implementation of proposed GA 
 (please note the code is a bit shabby currently)
 
 ## Instuctions to run
